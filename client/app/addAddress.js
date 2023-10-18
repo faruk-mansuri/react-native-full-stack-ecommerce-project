@@ -53,7 +53,7 @@ const addAddress = () => {
       Toast(data.msg);
       setFormData(initialState);
       setTimeout(() => {
-        router.back();
+        router.push('home');
       }, 1000);
     } catch (error) {
       console.log(error.response.data.msg);

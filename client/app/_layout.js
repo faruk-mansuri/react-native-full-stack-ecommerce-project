@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import ContextAPI from '../UserContext';
+import { StatusBar } from 'expo-status-bar';
 
 const InitialLayout = () => {
   const segment = useSegments();
@@ -36,6 +37,10 @@ const Layout = () => {
     <Provider store={store}>
       <ContextAPI>
         <BottomSheetModalProvider>
+          <StatusBar
+            backgroundColor='#222' // Set the desired background color
+            barStyle='light-content' // Set text and icon color (use 'default' for dark text)
+          />
           <InitialLayout />
         </BottomSheetModalProvider>
       </ContextAPI>

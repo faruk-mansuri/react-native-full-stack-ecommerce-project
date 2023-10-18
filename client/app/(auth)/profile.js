@@ -60,7 +60,7 @@ const profile = () => {
   };
 
   return (
-    <ScrollView style={{ padding: 10 }}>
+    <View style={{ flex: 1, padding: 10 }}>
       <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
         Welcome {user.name}
       </Text>
@@ -128,7 +128,15 @@ const profile = () => {
         </Pressable>
       </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {isLoading ? (
           <ActivityIndicator
             size='large'
@@ -163,7 +171,7 @@ const profile = () => {
           <Text>No orders found</Text>
         )}
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
