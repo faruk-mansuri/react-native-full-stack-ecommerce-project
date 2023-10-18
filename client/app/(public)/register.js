@@ -1,6 +1,7 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { Toast } from '../../Components';
 
 import {
   View,
@@ -10,7 +11,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -37,10 +37,10 @@ const Register = () => {
     setIsLoading(true);
     try {
       const { data } = await customFetch.post('/auth/register', user);
-      Alert.alert(data.msg);
+      Toast(data.msg);
       setFormInput({ name: '', email: '', password: '' });
     } catch (error) {
-      Alert.alert('Registration Error', error.response.data.msg);
+      Toast(error.response.data.msg);
     } finally {
       setIsLoading(false);
     }

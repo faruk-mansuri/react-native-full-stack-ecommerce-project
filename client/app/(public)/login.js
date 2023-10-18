@@ -10,11 +10,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import customFetch from '../../utils/customFetch.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Toast } from '../../Components';
 
 const Login = () => {
   const router = useRouter();
@@ -33,17 +33,18 @@ const Login = () => {
     try {
       const { data } = await customFetch.post('/auth/login', user);
       if (!data.verified) {
-        Alert.alert(
+        Toast(
           'Confirm your registration by clicking on verify link sent on your email'
         );
         return;
       }
       const token = data.token;
       await AsyncStorage.setItem('token', token);
+      Toast('Login Successfully');
       router.push('/home');
       setFormInput({ name: '', email: '', password: '' });
     } catch (error) {
-      Alert.alert('SignIn Error', error.response.data.msg);
+      Toast(error.response.data.msg);
     } finally {
       setIsLoading(false);
     }

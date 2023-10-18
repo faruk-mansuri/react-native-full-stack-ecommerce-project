@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
 import { clearCart } from '../features/cart/cartSlice';
 import RazorpayCheckout from 'react-native-razorpay';
+import { Toast } from '../Components';
 
 const ConfirMation = () => {
   const { userId } = useGlobalContext();
@@ -67,7 +68,7 @@ const ConfirMation = () => {
       // console.log(data.msg);
     } catch (error) {
       console.log(error.response.data.msg);
-      Alert.alert(error.response.data.msg);
+      Toast(error.response.data.msg);
     }
   };
 
@@ -160,122 +161,133 @@ const ConfirMation = () => {
             </Text>
 
             <Pressable>
-              {addresses.map((address, index) => {
-                return (
-                  <Pressable
-                    key={index}
-                    style={{
-                      flexDirection: 'row',
-                      gap: 10,
-                      alignItems: 'center',
-                      borderWidth: 1,
-                      borderColor: '#D0D0D0',
-                      padding: 10,
-                      marginBottom: 17,
-                      marginVertical: 7,
-                      borderRadius: 10,
-                    }}
-                  >
-                    {selectedAddress && selectedAddress._id === address._id ? (
-                      <FontAwesome5
-                        name='dot-circle'
-                        size={24}
-                        color='#008E97'
-                      />
-                    ) : (
-                      <Entypo
-                        name='circle'
-                        size={24}
-                        color='black'
-                        onPress={() => setSelectedAddress(address)}
-                      />
-                    )}
-
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 3,
-                        }}
-                      >
-                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
-                          {address.name}
-                        </Text>
-                        <Entypo name='location-pin' size={24} color='red' />
-                      </View>
-
-                      <Text style={{ fontSize: 15, color: '#181818' }}>
-                        {address.houseNo}, {address.landmark}
-                      </Text>
-
-                      <Text style={{ fontSize: 15, color: '#181818' }}>
-                        {address.street}
-                      </Text>
-
-                      <Text style={{ fontSize: 15, color: '#181818' }}>
-                        India, Pune
-                      </Text>
-
-                      <Text style={{ fontSize: 15, color: '#181818' }}>
-                        phone no. {address.mobileNo}
-                      </Text>
-
-                      <Text style={{ fontSize: 15, color: '#181818' }}>
-                        pin code: {address.postalCode}
-                      </Text>
-
-                      <View
-                        style={{ flexDirection: 'row', gap: 10, marginTop: 7 }}
-                      >
-                        <Pressable
-                          style={[styles.btn, { backgroundColor: '#80ff00' }]}
-                        >
-                          <Text style={{ padding: 1, fontSize: 15 }}>Edit</Text>
-                        </Pressable>
-
-                        <Pressable
-                          style={[styles.btn, { backgroundColor: 'red' }]}
-                        >
-                          <Text style={{ padding: 1, fontSize: 15 }}>
-                            Remove
-                          </Text>
-                        </Pressable>
-
-                        <Pressable
-                          style={[styles.btn, { backgroundColor: '#00CED1' }]}
-                        >
-                          <Text style={{ padding: 1, fontSize: 15 }}>
-                            set as default
-                          </Text>
-                        </Pressable>
-                      </View>
+              {addresses.length === 0 && (
+                <Pressable onPress={() => router.push('addAddress')}>
+                  <Text>Add Address</Text>
+                </Pressable>
+              )}
+              {addresses.length > 0 &&
+                addresses.map((address, index) => {
+                  return (
+                    <Pressable
+                      key={index}
+                      style={{
+                        flexDirection: 'row',
+                        gap: 10,
+                        alignItems: 'center',
+                        borderWidth: 1,
+                        borderColor: '#D0D0D0',
+                        padding: 10,
+                        marginBottom: 17,
+                        marginVertical: 7,
+                        borderRadius: 10,
+                      }}
+                    >
                       {selectedAddress &&
-                        selectedAddress._id === address._id && (
+                      selectedAddress._id === address._id ? (
+                        <FontAwesome5
+                          name='dot-circle'
+                          size={24}
+                          color='#008E97'
+                        />
+                      ) : (
+                        <Entypo
+                          name='circle'
+                          size={24}
+                          color='black'
+                          onPress={() => setSelectedAddress(address)}
+                        />
+                      )}
+
+                      <View>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 3,
+                          }}
+                        >
+                          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
+                            {address.name}
+                          </Text>
+                          <Entypo name='location-pin' size={24} color='red' />
+                        </View>
+
+                        <Text style={{ fontSize: 15, color: '#181818' }}>
+                          {address.houseNo}, {address.landmark}
+                        </Text>
+
+                        <Text style={{ fontSize: 15, color: '#181818' }}>
+                          {address.street}
+                        </Text>
+
+                        <Text style={{ fontSize: 15, color: '#181818' }}>
+                          India, Pune
+                        </Text>
+
+                        <Text style={{ fontSize: 15, color: '#181818' }}>
+                          phone no. {address.mobileNo}
+                        </Text>
+
+                        <Text style={{ fontSize: 15, color: '#181818' }}>
+                          pin code: {address.postalCode}
+                        </Text>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 10,
+                            marginTop: 7,
+                          }}
+                        >
                           <Pressable
-                            style={{
-                              backgroundColor: '#FFC72C',
-                              padding: 10,
-                              borderRadius: 10,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              marginTop: 10,
-                            }}
-                            onPress={() => setCurrentStep(1)}
+                            style={[styles.btn, { backgroundColor: '#80ff00' }]}
                           >
-                            <Text
-                              style={{
-                                fontWeight: '500',
-                                letterSpacing: 1,
-                              }}
-                            >
-                              Deliver to this address
+                            <Text style={{ fontSize: 15 }}>Edit</Text>
+                          </Pressable>
+
+                          <Pressable
+                            style={[styles.btn, { backgroundColor: 'red' }]}
+                          >
+                            <Text style={{ padding: 1, fontSize: 15 }}>
+                              Remove
                             </Text>
                           </Pressable>
-                        )}
-                    </View>
-                  </Pressable>
-                );
-              })}
+
+                          <Pressable
+                            style={[styles.btn, { backgroundColor: '#00CED1' }]}
+                          >
+                            <Text style={{ padding: 1, fontSize: 15 }}>
+                              set as default
+                            </Text>
+                          </Pressable>
+                        </View>
+                        {selectedAddress &&
+                          selectedAddress._id === address._id && (
+                            <Pressable
+                              style={{
+                                backgroundColor: '#FFC72C',
+                                padding: 10,
+                                borderRadius: 10,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginTop: 10,
+                              }}
+                              onPress={() => setCurrentStep(1)}
+                            >
+                              <Text
+                                style={{
+                                  fontWeight: '500',
+                                  letterSpacing: 1,
+                                }}
+                              >
+                                Deliver to this address
+                              </Text>
+                            </Pressable>
+                          )}
+                      </View>
+                    </Pressable>
+                  );
+                })}
             </Pressable>
           </View>
         )}
@@ -528,7 +540,7 @@ const ConfirMation = () => {
 const styles = StyleSheet.create({
   btn: {
     backgroundColor: '#F5F5F5',
-    paddingHorizontal: 10,
+    paddingHorizontal: 7,
     paddingVertical: 6,
     borderRadius: 5,
     borderWidth: 1,

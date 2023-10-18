@@ -5,7 +5,6 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
-  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,6 +12,7 @@ import { FormRow } from '../Components';
 import { useGlobalContext } from '../UserContext';
 import customFetch from '../utils/customFetch';
 import { useRouter } from 'expo-router';
+import { Toast } from '../Components';
 
 const initialState = {
   name: '',
@@ -50,14 +50,14 @@ const addAddress = () => {
         userId,
         address,
       });
-      Alert.alert(data.msg);
+      Toast(data.msg);
       setFormData(initialState);
       setTimeout(() => {
         router.back();
       }, 1000);
     } catch (error) {
       console.log(error.response.data.msg);
-      Alert.alert(error.response.data.msg);
+      Toast(error.response.data.msg);
     }
   };
 

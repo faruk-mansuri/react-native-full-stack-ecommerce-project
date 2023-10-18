@@ -11,7 +11,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import { useSearchParams } from 'expo-router';
+import { useRouter, useSearchParams } from 'expo-router';
 import { HomeHeader } from '../../Components';
 import { offers, deals } from '../../utils/data';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,7 @@ const SingleDeal = () => {
   const { width } = Dimensions.get('window');
   const height = (width * 100) / 100;
   const { offerId, label } = useSearchParams();
-
+  const router = useRouter();
   let product;
   if (label === 'offers') {
     product = offers.find((offer) => offer.id === offerId);
@@ -52,6 +52,12 @@ const SingleDeal = () => {
     setTimeout(() => {
       setAddedToCart(false);
     }, 1000 * 60);
+  };
+
+  const handleByNow = async () => {
+    setAddedToCart(true);
+    dispatch(addToCart(product));
+    router.push('cart');
   };
 
   return (
@@ -141,7 +147,7 @@ const SingleDeal = () => {
           <Text style={{ color: '#00CED1' }}>
             Free Delivery Tomorrow by 3 PM. Order within 10hrs
           </Text>
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               marginTop: 5,
@@ -154,7 +160,7 @@ const SingleDeal = () => {
             <Text style={{ fontSize: 15, fontWeight: '500' }}>
               Deliver To Peter - Pune 40011
             </Text>
-          </View>
+          </View> */}
         </View>
 
         <Text
@@ -167,7 +173,10 @@ const SingleDeal = () => {
           <Text>{addedToCart ? 'Added to cart' : 'Add to Cart'}</Text>
         </Pressable>
 
-        <Pressable style={[styles.btn, { backgroundColor: '#FFAC1C' }]}>
+        <Pressable
+          style={[styles.btn, { backgroundColor: '#FFAC1C' }]}
+          onPress={handleByNow}
+        >
           <Text>Buy now</Text>
         </Pressable>
       </ScrollView>
