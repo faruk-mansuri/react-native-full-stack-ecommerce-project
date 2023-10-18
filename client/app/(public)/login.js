@@ -43,7 +43,7 @@ const Login = () => {
       router.push('/home');
       setFormInput({ name: '', email: '', password: '' });
     } catch (error) {
-      Alert.alert('Registration Error', error.response.data.msg);
+      Alert.alert('SignIn Error', error.response.data.msg);
     } finally {
       setIsLoading(false);
     }
