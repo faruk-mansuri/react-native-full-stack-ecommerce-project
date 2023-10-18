@@ -230,13 +230,13 @@ const ConfirMation = () => {
                         <Pressable
                           style={[styles.btn, { backgroundColor: '#80ff00' }]}
                         >
-                          <Text style={{ padding: 2, fontSize: 15 }}>Edit</Text>
+                          <Text style={{ padding: 1, fontSize: 15 }}>Edit</Text>
                         </Pressable>
 
                         <Pressable
                           style={[styles.btn, { backgroundColor: 'red' }]}
                         >
-                          <Text style={{ padding: 2, fontSize: 15 }}>
+                          <Text style={{ padding: 1, fontSize: 15 }}>
                             Remove
                           </Text>
                         </Pressable>
@@ -244,7 +244,7 @@ const ConfirMation = () => {
                         <Pressable
                           style={[styles.btn, { backgroundColor: '#00CED1' }]}
                         >
-                          <Text style={{ padding: 2, fontSize: 15 }}>
+                          <Text style={{ padding: 1, fontSize: 15 }}>
                             set as default
                           </Text>
                         </Pressable>

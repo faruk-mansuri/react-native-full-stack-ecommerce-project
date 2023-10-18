@@ -40,18 +40,18 @@ const cart = () => {
 
         <Text style={{ marginHorizontal: 10 }}>EMI details available</Text>
 
-        <Pressable
-          style={{
-            backgroundColor: '#FFC72C',
-            padding: 10,
-            borderRadius: 5,
-            alignItems: 'center',
-            marginHorizontal: 10,
-            marginTop: 10,
-          }}
-          onPress={() => router.push('confirmation')}
-        >
-          {amount > 0 ? (
+        {amount > 0 ? (
+          <Pressable
+            style={{
+              backgroundColor: '#FFC72C',
+              padding: 10,
+              borderRadius: 5,
+              alignItems: 'center',
+              marginHorizontal: 10,
+              marginTop: 10,
+            }}
+            onPress={() => router.push('confirmation')}
+          >
             <Text
               style={{
                 fontWeight: 'bold',
@@ -61,19 +61,30 @@ const cart = () => {
             >
               Proceed to Buy {amount} product
             </Text>
-          ) : (
+          </Pressable>
+        ) : (
+          <Pressable
+            style={{
+              backgroundColor: '#FFC72C',
+              padding: 10,
+              borderRadius: 5,
+              alignItems: 'center',
+              marginHorizontal: 10,
+              marginTop: 10,
+            }}
+            onPress={() => router.push('home')}
+          >
             <Text
               style={{
                 fontWeight: 'bold',
                 letterSpacing: 1,
                 textTransform: 'capitalize',
               }}
-              onPress={() => router.push('home')}
             >
               Continue Shopping
             </Text>
-          )}
-        </Pressable>
+          </Pressable>
+        )}
 
         <Text
           style={{
